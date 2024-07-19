@@ -71,6 +71,18 @@
       "short_name": "tptc",
       "description": "Jeu joué aux antilles un peu similaire à Gomoku",
       "url": "https://tptc.jouer.cloud"
+    },
+    {
+      "name": "Dé-Si-Dé",
+      "short_name": "Dé-Si-Dé",
+      "description": "Jeu de dés. 3 modes de jeu.",
+      "url": "https://deside.jouer.cloud"
+    },
+    {
+      "name": "SimpleAsOne",
+      "short_name": "SimpleAsOne",
+      "description": "Dévinez le fameux nombre entre 1 et 100",
+      "url": "https://simpleasone.jouer.cloud"
     }
   ]
 }
