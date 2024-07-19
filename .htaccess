@@ -144,22 +144,17 @@ Options -Indexes +SymLinksIfOwnerMatch
 </IfModule>
 ## Send ETag (selected method: full)
 FileETag All
-##### Redirect index.html to / -- BEGIN
-RewriteCond %{THE_REQUEST} !^POST
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
-RewriteRule ^index\.html$ / [R=301,L]
-##### Redirect index.html to / -- END
 ##### Redirect www to non-www -- BEGIN
 # HTTP
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP:X-Forwarded-Proto} =http
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.jouer\.cloud$ [NC]
+RewriteRule ^(.*)$ https://jouer\.cloud/$1 [R=308,L]
 # HTTPS
 RewriteCond %{HTTPS} =on [OR]
 RewriteCond %{HTTP:X-Forwarded-Proto} !=http
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.jouer\.cloud$ [NC]
+RewriteRule ^(.*)$ https://jouer\.cloud/$1 [R=308,L]
 ##### Redirect www to non-www -- END
 
 ##### Rewrite rules to block out some common exploits -- BEGIN
@@ -228,7 +223,7 @@ RewriteRule .* - [F]
 
 # Disallow access to all other front-end files
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule !^index.html$ - [F]
+RewriteRule !^index\.html$ - [F]
 ## Protect against clickjacking
 <IfModule mod_headers.c>
 
@@ -287,6 +282,10 @@ ServerSignature Off
 ## Referrer-policy
 <IfModule mod_headers.c>
 	Header always set Referrer-Policy "same-origin"
+</IfModule>
+<IfModule mod_headers.c>
+   Header always set Cross-Origin-Resource-Policy "same-origin"
+   Header always setCross-Origin-Embedder-Policy "require-corp"
 </IfModule>
 ## Set the UTF-8 character set as the default
 #  Serve all resources labeled as `text/html` or `text/plain`
