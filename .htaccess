@@ -147,7 +147,7 @@ FileETag All
 ##### Redirect index.php to / -- BEGIN
 RewriteCond %{THE_REQUEST} !^POST
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
-RewriteRule ^index\.php$ / [R=301,L]
+RewriteRule ^index\.html$ / [R=301,L]
 ##### Redirect index.php to / -- END
 ##### Redirect www to non-www -- BEGIN
 # HTTP
@@ -169,7 +169,7 @@ RewriteCond %{QUERY_STRING} base64_(en|de)code\(.*\) [OR]
 RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
 RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
 RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
-RewriteRule .* index.php [F]
+RewriteRule .* index.html [F]
 ##### Rewrite rules to block out some common exploits -- END
 ##### File injection protection -- BEGIN
 RewriteCond %{REQUEST_METHOD} GET
@@ -191,27 +191,15 @@ RewriteRule ^installation/ - [L]
 ##### Advanced server protection rules exceptions -- END
 
 ##### Advanced server protection -- BEGIN
-
-#### Back-end protection
-RewriteRule ^administrator/?$ - [L]
-RewriteRule ^administrator/index\.(php|html?)$ - [L]
-RewriteRule ^administrator/(components|modules|templates)/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$ - [L,NC]
-RewriteRule ^administrator/ - [F]
-#### Front-end protection
-## Allow limited access to additional TinyMCE plugins' HTML files
-RewriteRule ^media/plg_editors_tinymce/js/plugins/.*\.(htm|html)$ - [L,NC]
 ## Allow limited access for certain directories with client-accessible content
-RewriteRule ^(components|modules|templates|images|plugins|media|libraries|components/com_jbusinessdirectory/assets)/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$ - [L,NC]
-RewriteRule ^(components|modules|templates|images|plugins|media|libraries|components/com_jbusinessdirectory/assets)/ - [F]
+RewriteRule ^/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$ - [L,NC]
 ## Disallow front-end access for certain Joomla! system directories (unless access to their files is allowed above)
 RewriteRule ^includes/js/ - [L]
 RewriteRule ^(cache|includes|language|logs|log|tmp)/ - [F]
-RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|joomla\.xml|LICENSE\.txt|phpunit\.xml|README\.txt|web\.config\.txt) - [F]
+RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|joomla\.xml|LICENSE\.txt|phpunit\.xml|README\.txt|README\.md|LICENSE|web\.config\.txt) - [F]
 
 ## Explicitly allow access to the site's index.php main entry point file
-RewriteRule ^index.php(/.*){0,1}$ - [L]
-## Explicitly allow access to the API application's index.php main entry point file
-RewriteRule ^api/index.php(/.*){0,1}$ - [L]
+RewriteRule ^index.html(/.*){0,1}$ - [L]
 ## Explicitly allow access to the site's robots.txt file
 RewriteRule ^robots.txt$ - [L]
 
@@ -219,13 +207,8 @@ RewriteRule ^robots.txt$ - [L]
 RewriteCond %{REQUEST_FILENAME} (\.php)$
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule (.*\.php)$ - [F]
-#### Disable client-side risky behavior in backend static content
-SetEnvIf Request_URI "^/administrator/(components|modules|templates)/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" disable_risky_behaviour
 #### Disable client-side risky behavior in frontend static content
-SetEnvIf Request_URI "^/(components|modules|templates|images|plugins|media|libraries|components/com_jbusinessdirectory/assets)/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" disable_risky_behaviour
-##### Always allow TinyMCE plugin files to load scripts (they need to)
-SetEnvIf Request_URI "^/media/plg_editors_tinymce/js/plugins/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/media/plg_editors_tinymce/js/plugins/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
+SetEnvIf Request_URI "^/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" disable_risky_behaviour
 
 ##### Advanced server protection rules exceptions also bypass the “disable client-side risky behavior” features -- BEGIN
 SetEnvIf Request_URI "^/administrator\/components\/com_akeeba\/restore\.php$" !disable_risky_behaviour
@@ -234,8 +217,6 @@ SetEnvIf Request_URI "^/administrator\/components\/com_joomlaupdate\/restore\.ph
 SetEnvIf Request_URI "^/administrator\/components\/com_joomlaupdate\/extract\.php$" !disable_risky_behaviour
 SetEnvIf Request_URI "^/\.well\-known/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
 SetEnvIf Request_URI "^/\.well\-known/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/installation/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/installation/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
 ##### Advanced server protection rules exceptions also bypass the “disable client-side risky behavior” features -- END
 
 
@@ -252,7 +233,7 @@ RewriteRule .* - [F]
 
 # Disallow access to all other front-end files
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule !^index.php$ - [F]
+RewriteRule !^index.html$ - [F]
 ## Protect against clickjacking
 <IfModule mod_headers.c>
 
@@ -340,17 +321,10 @@ AddDefaultCharset utf-8
 					 .xml
 </IfModule>
 ##### Joomla! core SEF Section -- BEGIN
-# -- SEF URLs for the API application
-RewriteCond %{REQUEST_URI} ^/api/
-RewriteCond %{REQUEST_URI} !^/api/index\.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* api/index.php [L]
-
 # -- SEF URLs for the public frontend application
 ##### Joomla! core SEF Section -- BEGIN
-RewriteCond %{REQUEST_URI} !^/index\.php
+RewriteCond %{REQUEST_URI} !^/index\.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* index.php [L]
+RewriteRule .* index.html [L]
 ##### Joomla! core SEF Section -- END
