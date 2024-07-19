@@ -31,7 +31,7 @@ RewriteBase /
 ##### RewriteBase set - END
 
 ##### File execution order -- BEGIN
-DirectoryIndex index.html index.php
+DirectoryIndex index.html
 ##### File execution order -- END
 
 ##### No directory listings -- BEGIN
@@ -144,17 +144,17 @@ Options -Indexes +SymLinksIfOwnerMatch
 </IfModule>
 ## Send ETag (selected method: full)
 FileETag All
-##### Redirect index.php to / -- BEGIN
+##### Redirect index.html to / -- BEGIN
 RewriteCond %{THE_REQUEST} !^POST
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
 RewriteRule ^index\.html$ / [R=301,L]
-##### Redirect index.php to / -- END
+##### Redirect index.html to / -- END
 ##### Redirect www to non-www -- BEGIN
 # HTTP
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP:X-Forwarded-Proto} =http
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 # HTTPS
 RewriteCond %{HTTPS} =on [OR]
 RewriteCond %{HTTP:X-Forwarded-Proto} !=http
@@ -180,28 +180,27 @@ RewriteRule .* - [F]
 ##### File injection protection -- END
 
 ##### Advanced server protection rules exceptions -- BEGIN
-RewriteRule ^administrator\/components\/com_akeeba\/restore\.php$ - [L]
-RewriteRule ^administrator\/components\/com_akeebabackup\/restore\.php$ - [L]
-RewriteRule ^administrator\/components\/com_joomlaupdate\/restore\.php$ - [L]
-RewriteRule ^administrator\/components\/com_joomlaupdate\/extract\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !(\.php)$
+RewriteCond %{REQUEST_FILENAME} !(\.html)$
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^\.well\-known/ - [L]
-RewriteRule ^installation/ - [L]
 ##### Advanced server protection rules exceptions -- END
 
 ##### Advanced server protection -- BEGIN
 ## Allow limited access for certain directories with client-accessible content
 RewriteRule ^/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$ - [L,NC]
 ## Disallow front-end access for certain Joomla! system directories (unless access to their files is allowed above)
-RewriteRule ^includes/js/ - [L]
 RewriteRule ^(cache|includes|language|logs|log|tmp)/ - [F]
-RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|joomla\.xml|LICENSE\.txt|phpunit\.xml|README\.txt|README\.md|LICENSE|web\.config\.txt) - [F]
+RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|LICENSE\.txt|README\.txt|README\.md|LICENSE) - [F]
 
-## Explicitly allow access to the site's index.php main entry point file
+## Explicitly allow access to the site's index.html main entry point file
 RewriteRule ^index.html(/.*){0,1}$ - [L]
 ## Explicitly allow access to the site's robots.txt file
 RewriteRule ^robots.txt$ - [L]
+
+## Disallow access to all other HTML files throughout the site, unless they are explicitly allowed
+RewriteCond %{REQUEST_FILENAME} (\.html)$
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule (.*\.html)$ - [F]
 
 ## Disallow access to all other PHP files throughout the site, unless they are explicitly allowed
 RewriteCond %{REQUEST_FILENAME} (\.php)$
@@ -211,10 +210,6 @@ RewriteRule (.*\.php)$ - [F]
 SetEnvIf Request_URI "^/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" disable_risky_behaviour
 
 ##### Advanced server protection rules exceptions also bypass the “disable client-side risky behavior” features -- BEGIN
-SetEnvIf Request_URI "^/administrator\/components\/com_akeeba\/restore\.php$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/administrator\/components\/com_akeebabackup\/restore\.php$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/administrator\/components\/com_joomlaupdate\/restore\.php$" !disable_risky_behaviour
-SetEnvIf Request_URI "^/administrator\/components\/com_joomlaupdate\/extract\.php$" !disable_risky_behaviour
 SetEnvIf Request_URI "^/\.well\-known/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
 SetEnvIf Request_URI "^/\.well\-known/.*\.(7z|avi|bmp|bpe|css|doc|docx|eot|flv|gif|htm|html|ico|jp2|jpe|jpe2|jpeg|jpg|js|json|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogv|pdf|png|ppt|pptx|rar|svg|swf|ttf|txt|wav|webmanifest|webp|woff|woff2|xls|xlsx|xps|xsl|zip|map)$" !disable_risky_behaviour
 ##### Advanced server protection rules exceptions also bypass the “disable client-side risky behavior” features -- END
