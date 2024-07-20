@@ -1,6 +1,7 @@
+DirectoryIndex index.html
+
 RewriteEngine on
 
-FileETag All
 ##### Redirect www to non-www -- BEGIN
 # HTTP
 RewriteCond %{HTTPS} !=on [OR]
@@ -14,104 +15,13 @@ RewriteCond %{HTTP_HOST} ^www\.jouer\.cloud$ [NC]
 RewriteRule ^(.*)$ https://jouer\.cloud/$1 [R=308,L]
 ##### Redirect www to non-www -- END
 
-RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|LICENSE\.txt|README\.txt|README\.md|LICENSE) - [F]
+RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|LICENSE|LICENSE\.txt|LICENSE\.md|README\.txt|README\.md) - [F]
 
-## Explicitly allow access to the site's index.html main entry point file
-RewriteRule ^index.html(/.*){0,1}$ - [L]
-## Explicitly allow access to the site's robots.txt file
-RewriteRule ^robots.txt$ - [L]
-
-# Disallow access to all other front-end files
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule !^index\.html$ - [F]
-
-## Protect against clickjacking
+## Resource related policies
 <IfModule mod_headers.c>
-
-	Header always set X-Frame-Options SAMEORIGIN
-
-	# The `X-Frame-Options` response header should be send only for
-	# HTML documents and not for the other resources.
-
-	<FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|woff2?|xloc|xml|xpi)$">
-		Header unset X-Frame-Options
-	</FilesMatch>
-
-</IfModule>
-## Reduce MIME type security risks
-<IfModule mod_headers.c>
-	Header set X-Content-Type-Options "nosniff"
-</IfModule>
-## Reflected XSS prevention
-<IfModule mod_headers.c>
-Header set X-XSS-Protection "1; mode=block"
-</IfModule>
-
-# mod_headers cannot match based on the content-type, however,
-# the X-XSS-Protection response header should be sent only for
-# HTML documents and not for the other resources.
-
-<IfModule mod_headers.c>
-	<FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
-		Header unset X-XSS-Protection
-	</FilesMatch>
-</IfModule>
-## Neutralize scripts in SVG files
-<FilesMatch "\.svg$">
-  <IfModule mod_headers.c>
-    Header always set Content-Security-Policy "script-src 'none'"
-  </IfModule>
-</FilesMatch>
-## Remove Apache and PHP version signature
-<IfModule mod_headers.c>
-	Header always unset X-Powered-By
-	Header always unset X-Content-Powered-By
-</IfModule>
-
-ServerSignature Off
-## Prevent content transformation
-<IfModule mod_headers.c>
-	Header merge Cache-Control "no-transform"
-</IfModule>
-##### Advanced server protection -- END
-
-## Explicitly enable Cross-Origin Resource Sharing (CORS) -- See http://enable-cors.org/
-<IfModule mod_headers.c>
-	Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Origin "*"
 	Header always set Timing-Allow-Origin "*"
-</IfModule>
-## Referrer-policy
-<IfModule mod_headers.c>
 	Header always set Referrer-Policy "same-origin"
-</IfModule>
-<IfModule mod_headers.c>
-   Header always set Cross-Origin-Resource-Policy "same-origin"
-   Header always set Cross-Origin-Embedder-Policy "require-corp"
-</IfModule>
-## Set the UTF-8 character set as the default
-#  Serve all resources labeled as `text/html` or `text/plain`
-#  with the media type `charset` parameter set to `UTF-8`.
-
-AddDefaultCharset utf-8
-
-# Serve the following file types with the media type `charset`
-# parameter set to `UTF-8`.
-#
-# https://httpd.apache.org/docs/current/mod/mod_mime.html#addcharset
-
-<IfModule mod_mime.c>
-	AddCharset utf-8 .atom \
-					 .bbaw \
-					 .css \
-					 .geojson \
-					 .js \
-					 .json \
-					 .jsonld \
-					 .rdf \
-					 .rss \
-					 .topojson \
-					 .vtt \
-					 .webapp \
-					 .xloc \
-					 .xml
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
 </IfModule>
