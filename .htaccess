@@ -285,7 +285,7 @@ ServerSignature Off
 </IfModule>
 <IfModule mod_headers.c>
    Header always set Cross-Origin-Resource-Policy "same-origin"
-   Header always setCross-Origin-Embedder-Policy "require-corp"
+   Header always set Cross-Origin-Embedder-Policy "require-corp"
 </IfModule>
 ## Set the UTF-8 character set as the default
 #  Serve all resources labeled as `text/html` or `text/plain`
