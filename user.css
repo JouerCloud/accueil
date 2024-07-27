@@ -58,7 +58,7 @@ a:active {
     background-color: light-dark(var(--ae-color-dark), var(--ae-color-light));
 }
 
-.header a:visited {
+.header a {
     color: light-dark(var(--ae-color-light), var(--ae-color-dark));
 }
 
