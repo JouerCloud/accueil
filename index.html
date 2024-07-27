@@ -5,107 +5,87 @@
     <title>Jouer Cloud | Plate-forme de jeux en ligne, amateurs et expérimentaux</title>
     <meta name="description"
           content="Plate-forme de jeux  en ligne, amateurs et expérimentaux, créés par Mr Alexandre J-S William ELISÉ">
+    <link rel="stylesheet" href="/user.css">
+    <link rel="preconnect" href="https://chess.jouer.cloud">
+    <link rel="preconnect" href="https://tptc.jouer.cloud">
+    <link rel="preconnect" href="https://deside.jouer.cloud">
+    <link rel="preconnect" href="https://simpleasone.jouer.cloud">
+    <link rel="canonical" href="/index.html" hreflang="fr" type="text/html" title="Page en français">
+    <link rel="alternate" href="/index-en.html" hreflang="en" type="text/html" title="Page in English">
     <meta name="author" content="Mr Alexandre J-S William ELISÉ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <base href="https://jouer.cloud/">
-    <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png">
-    <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
-    <link href="manifest.json" rel="manifest">
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="/android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="/manifest.json" rel="manifest">
     <link color="#019aff" href="safari-pinned-tab.svg" rel="mask-icon">
     <meta content="#ffc40d" name="msapplication-TileColor">
-    <meta content="mstile-144x144.png" name="msapplication-TileImage">
+    <meta content="/mstile-144x144.png" name="msapplication-TileImage">
     <meta content="#ffffff" name="theme-color">
-    <style>
-        html, body {
-            font-family: Verdana, sans-serif;
-            text-align: center;
-            font-size: 16px;
-            background-color: yellow;
-        }
-
-        .h1 {
-            color: deeppink;
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        form {
-            color: black;
-        }
-
-        fieldset, iframe {
-            border: none;
-        }
-
-        legend {
-            color: dodgerblue;
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        ul {
-            list-style: "";
-            padding: 0;
-        }
-
-        .btn, button {
-            min-width: 15rem;
-            width: min-content;
-            max-width: 25rem;
-            padding: 1.4rem;
-            margin: 1rem;
-            background-color: deeppink;
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        a.btn {
-            display: inline-block;
-        }
-
-
-        @media (hover: hover) and (pointer: fine) {
-            a.btn:hover, button:hover {
-                transition: background-color 900ms ease-in, border 100ms linear, color 450ms ease-in;
-                background-color: white;
-                border: 2px solid dodgerblue;
-                color: dodgerblue;
-            }
-
-        }
-
-    </style>
 </head>
-<body>
-<hgroup>
-    <h1 class="h1">Jouer Cloud</h1>
-    <h2>Plate-forme de jeux en ligne, amateurs et expérimentaux</h2>
-</hgroup>
-<section>
-    <article>
-        <ul>
-            <li><a class="btn" href="https://chess.jouer.cloud" target="_blank" rel="noopener"
-                   title="Jouer au jeu d'échecs C.H.E.S.S">Jouer
-                à <br><strong>C.H.E.S.S</strong></a></li>
-            <li><a class="btn" href="https://tptc.jouer.cloud" target="_blank" rel="noopener"
-                   title="Jouer à Ti point Ti croix: Jeu joué aux antilles un peu similaire au jeu Gomoku">Jouer
-                à<br><strong>Ti point Ti croix</strong></a></li>
-            <li><a class="btn" href="https://deside.jouer.cloud" target="_blank" rel="noopener"
-                   title="Jouer à Dé-Si-Dé: Jeu de dés avec 3 modes de jeu">Jouer à<br><strong>Dé-Si-Dé</strong></a>
+<body class="home__page">
+<header class="header">
+    <nav class="nav top__menu">
+        <ul class="switcher__lang">
+            <li><a href="/index.html" hreflang="fr" rel="canonical"
+                   title="Page en français">&#127467;&#127479;&nbsp;Fr</a>
             </li>
-            <li><a class="btn" href="https://simpleasone.jouer.cloud" target="_blank" rel="noopener"
-                   title="Jouer Simple As One: Dévinez le fameux nombre entre 1 et 100.">Jouer à<br>
-                <strong>SimpleAsOne</strong></a></li>
+            <li><a href="/index-en.html" hreflang="en" rel="alternate" title="Page in English">&#127468;&#127463;&nbsp;En</a>
+            </li>
         </ul>
+    </nav>
+</header>
+<hgroup class="hgroup">
+    <h1 class="h1">Jouer Cloud</h1>
+    <h2 class="h2">Plate-forme de jeux en ligne, amateurs et expérimentaux</h2>
+</hgroup>
+<h3 class="h3">Liste des jeux</h3>
+<section class="game__container">
+    <article class="game__item--card">
+        <header><h4 class="h4">C.H.E.S.S</h4></header>
+        <picture>
+            <source srcset="">
+            <img src="" alt="">
+        </picture>
+        <footer><a id="chess" class="btn" href="https://chess.jouer.cloud" target="_blank" rel="noopener"
+                   title="Jouer au jeu d'échecs C.H.E.S.S">Jouer à <br><strong>C.H.E.S.S</strong></a></footer>
     </article>
-    <footer>
-        <p>Copyright &copy; 2024 - present. Mr Alexandre J-S William ELISÉ. Tous droits réservés.</p>
-    </footer>
+    <article class="game__item--card">
+        <header><h4 class="h4">Ti point Ti croix</h4></header>
+        <picture>
+            <source srcset="">
+            <img src="" alt="">
+        </picture>
+        <footer><a id="tptc" class="btn" href="https://tptc.jouer.cloud" target="_blank" rel="noopener"
+                   title="Jouer à Ti point Ti croix: Jeu joué aux antilles un peu similaire au jeu Gomoku">Jouer
+            à<br><strong>Ti point Ti croix</strong></a></footer>
+    </article>
+    <article class="game__item--card">
+        <header><h4 class="h4">Dé-Si-Dé</h4></header>
+        <picture>
+            <source srcset="">
+            <img src="" alt="">
+        </picture>
+        <footer><a id="deside" class="btn" href="https://deside.jouer.cloud" target="_blank" rel="noopener"
+                   title="Jouer à Dé-Si-Dé: Jeu de dés avec 3 modes de jeu">Jouer à<br><strong>Dé-Si-Dé</strong></a>
+        </footer>
+    </article>
+    <article class="game__item--card">
+        <header><h4 class="h4">Fameux Nombre</h4></header>
+        <picture>
+            <source srcset="">
+            <img src="" alt="">
+        </picture>
+        <footer><a id="simpleasone" class="btn" href="https://simpleasone.jouer.cloud" target="_blank" rel="noopener"
+                   title="Jouer à Fameux Nombre: Dévinez le fameux nombre entre 1 et 100.">Jouer à<br>
+            <strong>Fameux Nombre</strong></a></footer>
+    </article>
 </section>
+<footer class="footer">
+    <p>Copyright &copy; 2024 - present. Mr Alexandre J-S William ELISÉ. Tous droits réservés.</p>
+</footer>
+<script src="/language-switcher.js" defer="defer"></script>
 </body>
 </html>
