@@ -1,0 +1,190 @@
+:root {
+    color-scheme: inherit;
+    --ae-hue: 0;
+    --ae-alpha: 100%;
+}
+
+.light {
+    /* forces light color-scheme */
+    color-scheme: light;
+}
+
+.dark {
+    /* forces dark color-scheme */
+    color-scheme: dark;
+}
+
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --ae-color-1: hsla(60, 100%, 50%, 100%);
+        --ae-color-2: hsla(328, 100%, 54%, 100%);
+        --ae-color-3: hsla(210, 100%, 56%, 100%);
+        --ae-color-light: hsla(0, 0%, 100%, 100%);
+        --ae-color-dark: hsla(0, 0%, 0%, 100%);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ae-color-1: hsla(60, 30%, 50%, 100%);
+        --ae-color-2: hsla(328, 30%, 54%, 100%);
+        --ae-color-3: hsla(210, 30%, 56%, 100%);
+        --ae-color-light: hsla(0, 0%, 100%, 100%);
+        --ae-color-dark: hsla(0, 0%, 0%, 100%);
+    }
+}
+
+
+html, body {
+    font-family: Verdana, sans-serif;
+    text-align: center;
+    font-size: 16px;
+    background-color: var(--ae-color-1);
+}
+
+a:active {
+    color: var(--ae-color-3);
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: inherit;
+    min-height: 4rem;
+    color: light-dark(var(--ae-color-light), var(--ae-color-dark));
+    background-color: light-dark(var(--ae-color-dark), var(--ae-color-light));
+}
+
+.header a:visited {
+    color: light-dark(var(--ae-color-light), var(--ae-color-dark));
+}
+
+.nav.top__menu {
+    display: grid;
+    grid-template-areas: "l .";
+    grid-template-columns: 5rem 1fr;
+    grid-template-rows: 1.2rem;
+}
+
+ul {
+    list-style: "";
+    display: flex;
+    padding: 0;
+}
+
+ul a {
+    text-decoration: none;
+}
+
+.nav ul.switcher__lang {
+    grid-area: l;
+    font-size: 1.2rem;
+    justify-content: start;
+    padding: 4px;
+}
+
+.nav ul.switcher__lang li {
+    margin: 0 4px;
+}
+
+.home__page {
+    margin-top: 4rem;
+}
+
+.h1 {
+    color: var(--ae-color-2);
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.h2 {
+    color: light-dark(var(--ae-color-dark), var(--ae-color-light));
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.h3 {
+    color: var(--ae-color-2);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.h4 {
+    color: var(--ae-color-2);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.game__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 25rem));
+    grid-template-rows: repeat(auto-fit, minmax(15rem, 25rem));
+    grid-gap: 8px;
+    justify-content: center;
+    justify-items: center;
+    align-content: start;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.game__item--card {
+    background-color: light-dark(var(--ae-color-dark), var(--ae-color-light));
+    border-radius: 4px;
+    width: min-content;
+    min-width: 15rem;
+    max-width: 25rem;
+    margin: 8px;
+    justify-self: center;
+    align-self: center;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4rem;
+}
+
+form {
+    color: var(--ae-color-dark);
+}
+
+fieldset, iframe {
+    border: none;
+}
+
+legend {
+    color: var(--ae-color-3);
+    text-align: center;
+    margin: 0 auto;
+}
+
+.btn, button {
+    min-width: 15rem;
+    width: min-content;
+    max-width: 25rem;
+    padding: 1.4rem;
+    margin: 1rem;
+    background-color: var(--ae-color-2);
+    color: var(--ae-color-light);
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+a.btn {
+    display: inline-block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    a.btn:hover, button:hover {
+        transition: background-color 900ms ease-in, border 100ms linear, color 450ms ease-in;
+        background-color: white;
+        border: 2px solid var(--ae-color-3);
+        color: var(--ae-color-3);
+    }
+
+}
