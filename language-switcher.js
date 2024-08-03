@@ -15,11 +15,11 @@
         lang = useComputedLanguage ? computedLanguage() : givenLang;
         // If explicity want English page and we are not there yet, redirect to English page
         if ((lang === 'en') && !myGlobal.location.pathname.startsWith('/index-en.html')) {
-            myGlobal.history.push('/index-en.html');
+            myGlobal.location.assign('/index-en.html');
         } else if ((lang === 'fr') && !myGlobal.location.pathname.startsWith('/index.html')) { // any other non supported language yet defaults to French page if not yet set
-            myGlobal.history.push('/index.html');
+            myGlobal.location.assign('/index.html');
         } else {
-            myGlobal.history.pop();
+            //NO-OP
         }
     }
 
