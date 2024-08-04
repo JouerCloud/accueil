@@ -27,9 +27,9 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --ae-color-1: hsla(60, 30%, 50%, 100%);
-        --ae-color-2: hsla(328, 30%, 54%, 100%);
-        --ae-color-3: hsla(210, 30%, 56%, 100%);
+        --ae-color-1: hsla(50, 100%, 50%, 100%);
+        --ae-color-2: hsla(328, 100%, 50%, 100%);
+        --ae-color-3: hsla(210, 100%, 50%, 100%);
         --ae-color-light: hsla(0, 0%, 100%, 100%);
         --ae-color-dark: hsla(0, 0%, 0%, 100%);
     }
